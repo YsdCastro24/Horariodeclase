@@ -4,5 +4,5 @@ def mostrar_notificacion(titulo, mensaje):
     notification.notify(
         title=titulo,
         message=mensaje,
-        timeout=10  # Duración de la notificación en segundos
+        timeout=20 
     )

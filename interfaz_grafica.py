@@ -24,14 +24,13 @@ class HorarioApp(QMainWindow):
             QPushButton:hover { background-color: #45a049; }
         """)
 
-        # Tabla principal
+
         self.tabla_horario = QTableWidget(self)
         self.tabla_horario.setColumnCount(5)
         self.tabla_horario.setHorizontalHeaderLabels(["Materia", "Día", "Horario", "Profesor", "Tareas Pendientes"])
         self.tabla_horario.setAlternatingRowColors(True)
         self.tabla_horario.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
-        # Botones
         self.boton_agregar_materia = QPushButton("Agregar Materia", self)
         self.boton_agregar_materia.clicked.connect(self.abrir_formulario_materia)
 
@@ -44,15 +43,13 @@ class HorarioApp(QMainWindow):
         self.boton_eliminar_tarea = QPushButton("Eliminar Tarea", self)
         self.boton_eliminar_tarea.clicked.connect(self.eliminar_tarea)
 
-         # Botón Acerca de con ícono de tuerca
         self.boton_acerca = QPushButton(self)
-        self.boton_acerca.setIcon(qta.icon('fa5s.cog'))  # Ícono de tuerca de FontAwesome
+        self.boton_acerca.setIcon(qta.icon('fa5s.cog')) 
         self.boton_acerca.setToolTip("Acerca de")
         self.boton_acerca.clicked.connect(self.mostrar_acerca)
-        self.boton_acerca.setIconSize(QSize(24, 24))  # Tamaño personalizado del ícono
+        self.boton_acerca.setIconSize(QSize(24, 24))  
         self.boton_acerca.setIcon(qta.icon('fa5s.cog', color='white'))
 
-        # Reloj
         self.reloj = QLabel(self)
         self.reloj.setAlignment(Qt.AlignCenter)
         self.reloj.setStyleSheet("font-size: 16px; font-weight: bold;")
@@ -61,7 +58,6 @@ class HorarioApp(QMainWindow):
         reloj_timer.timeout.connect(self.actualizar_reloj)
         reloj_timer.start(1000)
 
-        # Layout
         layout_botones = QHBoxLayout()
         layout_botones.addWidget(self.boton_agregar_materia)
         layout_botones.addWidget(self.boton_agregar_horario)
@@ -78,10 +74,10 @@ class HorarioApp(QMainWindow):
         container.setLayout(layout)
         self.setCentralWidget(container)
 
-        # Cargar datos
+
         self.cargar_datos()
 
-        # Temporizador para verificar tareas
+
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.verificar_tareas)
         self.timer.start(60000)
@@ -109,7 +105,7 @@ class HorarioApp(QMainWindow):
                 self.tabla_horario.setItem(i, j, item)
 
     def verificar_tareas(self):
-        ahora = datetime.now(timezone(timedelta(hours=-5)))  # UTC-5 Colombia
+        ahora = datetime.now(timezone(timedelta(hours=-5))) 
         conexion = sqlite3.connect('datos/horario.db')
         cursor = conexion.cursor()
         cursor.execute("""
